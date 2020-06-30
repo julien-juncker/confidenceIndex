@@ -29,18 +29,51 @@ public class GetData {
     DataSource ds;
     
     public String confindenceIndex(){
-        String findWord = "amour";
-        ArrayList<String> list1 = new ArrayList<String>();
+        // Liste 1 = données à récup du C#
+        ArrayList<String> liste1 = new ArrayList<String>();
+        ArrayList<String> liste2 = new ArrayList<String>();
+        
+        // fileName = nom du fichier txt décrypté, à récup du C#
+        String fileName = "txt xx";
+        
+        float indice = 0;
+      
+        // Return par la fonction
+        String toReturn = " ";
+        
         try {
             Connection conn = ds.getConnection();
             Statement st=conn.createStatement();
-            ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" +findWord+"'");
+            
+            for (String motachercher : liste1) {
+            ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" +motachercher+"'");
+                
             while(rs.next())
             {
-                list1.add(rs.getString(1));
+                liste2.add(rs.getString(1));
             }
             rs.close();
-            return list1.get(0);
+            
+            float sizel1 = liste1.size();
+            float sizel2 = liste2.size();
+           
+            indice = (sizel2/sizel1)*100;
+        
+            if(indice >= 100) {
+                //System.out.println("L'indice de décryptage est suffisant");
+                //System.out.println("L'indice de décryptage est de : " + indice + "%");
+                toReturn = "Nom du fichier : " + fileName + " |Indice de décryptage : " + indice +" %";
+            }
+            else {
+                //System.out.println("L'indice de décryptage est insuffisant");
+                //System.out.println("L'indice de décryptage est de : " + indice + "%, l'indice minimum requis est de 70%"); 
+                toReturn = "Indice de décryptage est insuffisant";
+            }      
+           
+            st.close();
+            conn.close();
+        }
+            return toReturn;
         } catch (SQLException ex) {
             return ex.toString();
         }
