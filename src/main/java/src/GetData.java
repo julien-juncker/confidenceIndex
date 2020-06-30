@@ -39,9 +39,7 @@ public class GetData {
         // Return par la fonction
         String toReturn = " ";
         
-        return liste1.get(0);
-        
-        /*try {
+        try {
             Connection conn = ds.getConnection();
             Statement st=conn.createStatement();
             
@@ -52,7 +50,6 @@ public class GetData {
             {
                 liste2.add(rs.getString(1));
             }
-            rs.close();
             
             float sizel1 = liste1.size();
             float sizel2 = liste2.size();
@@ -70,12 +67,13 @@ public class GetData {
                 toReturn = "Indice de décryptage est insuffisant";
             }      
            
+            rs.close();
             st.close();
             conn.close();
         }
             return toReturn;
         } catch (SQLException ex) {
             return ex.toString();
-        }*/
+        }
     }
 }
