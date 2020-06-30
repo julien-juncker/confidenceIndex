@@ -1,0 +1,4 @@
+com\cesi\confidenceindex\war\JAXRSConfiguration.class
+src\GetData.class
+service\GetData.class
+com\cesi\confidenceindex\war\resources\JavaEE8Resource.class
