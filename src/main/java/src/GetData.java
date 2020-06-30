@@ -12,6 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
@@ -28,7 +31,11 @@ public class GetData {
     @Resource(lookup = "jdbc/oracledb")
     DataSource ds;
     
-    public String confindenceIndex(ArrayList<String> list1){
+    public String confindenceIndex(ArrayList<String> list1) throws NamingException{
+        Context envContext = InitialContext.doLookup("java:/comp/env");
+
+        // On récupère la source de données dans le contexte java:/comp/env
+        DataSource dataSource = DataSource.class.cast(envContext.lookup("jdbc/oracledb"));
         
         ArrayList<String> listTMP = new ArrayList<String>();
         listTMP.add("amour");
@@ -44,7 +51,7 @@ public class GetData {
         String toReturn = " ";
         
         try {
-            Connection conn = ds.getConnection();
+            Connection conn = dataSource.getConnection();
             Statement st=conn.createStatement();
             
             for (String motachercher : listTMP) {
