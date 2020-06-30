@@ -28,9 +28,7 @@ public class GetData {
     @Resource(lookup = "jdbc/oracledb")
     DataSource ds;
     
-    public String confindenceIndex(){
-        // Liste 1 = données à récup du C#
-        ArrayList<String> liste1 = new ArrayList<String>();
+    public String confindenceIndex(ArrayList<String> liste1){
         ArrayList<String> liste2 = new ArrayList<String>();
         
         // fileName = nom du fichier txt décrypté, à récup du C#
