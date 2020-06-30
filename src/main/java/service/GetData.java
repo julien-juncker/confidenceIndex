@@ -5,6 +5,7 @@
  */
 package service;
 
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
