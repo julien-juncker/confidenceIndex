@@ -6,10 +6,13 @@
 package src;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.naming.Context;
@@ -31,11 +34,16 @@ public class GetData {
     @Resource(lookup = "jdbc/oracledb")
     DataSource ds;
     
-    public String confindenceIndex(ArrayList<String> list1) throws NamingException{
-        Context envContext = InitialContext.doLookup("java:/comp/env");
+    public String confindenceIndex(ArrayList<String> list1) throws SQLException{
+        Connection con = null;
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@52.247.70.89:32769:orclcdb","c##developper","Root123");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GetData.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        // On récupère la source de données dans le contexte java:/comp/env
-        DataSource dataSource = DataSource.class.cast(envContext.lookup("jdbc/oracledb"));
+        Statement st=con.createStatement();
         
         ArrayList<String> listTMP = new ArrayList<String>();
         listTMP.add("amour");
@@ -51,8 +59,8 @@ public class GetData {
         String toReturn = " ";
         
         try {
-            Connection conn = dataSource.getConnection();
-            Statement st=conn.createStatement();
+            //Connection conn = dataSource.getConnection();
+            //Statement st=conn.createStatement();
             
             for (String motachercher : listTMP) {
                 ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" +motachercher+"'");
@@ -82,7 +90,7 @@ public class GetData {
            
             
             st.close();
-            conn.close();
+            con.close();
             return toReturn;
         } catch (SQLException ex) {
             return ex.toString();
