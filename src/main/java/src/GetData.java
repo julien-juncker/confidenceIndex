@@ -44,11 +44,13 @@ public class GetData {
             Statement st=conn.createStatement();
             
             for (String motachercher : liste1) {
-            ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" +motachercher+"'");
+                ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" +motachercher+"'");
                 
-            while(rs.next())
-            {
-                liste2.add(rs.getString(1));
+                while(rs.next())
+                {
+                    liste2.add(rs.getString(1));
+                }
+                rs.close();
             }
             
             float sizel1 = liste1.size();
@@ -67,10 +69,9 @@ public class GetData {
                 toReturn = "Indice de décryptage est insuffisant";
             }      
            
-            rs.close();
+            
             st.close();
             conn.close();
-        }
             return toReturn;
         } catch (SQLException ex) {
             return ex.toString();
