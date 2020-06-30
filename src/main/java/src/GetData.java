@@ -39,7 +39,9 @@ public class GetData {
         // Return par la fonction
         String toReturn = " ";
         
-        try {
+        return liste1.get(0);
+        
+        /*try {
             Connection conn = ds.getConnection();
             Statement st=conn.createStatement();
             
@@ -74,6 +76,6 @@ public class GetData {
             return toReturn;
         } catch (SQLException ex) {
             return ex.toString();
-        }
+        }*/
     }
 }
