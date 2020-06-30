@@ -28,8 +28,12 @@ public class GetData {
     @Resource(lookup = "jdbc/oracledb")
     DataSource ds;
     
-    public String confindenceIndex(ArrayList<String> liste1){
-        ArrayList<String> liste2 = new ArrayList<String>();
+    public String confindenceIndex(ArrayList<String> list1){
+        
+        ArrayList<String> listTMP = new ArrayList<String>();
+        listTMP.add("amour");
+        
+        ArrayList<String> list2 = new ArrayList<String>();
         
         // fileName = nom du fichier txt décrypté, à récup du C#
         String fileName = "txt xx";
@@ -43,18 +47,18 @@ public class GetData {
             Connection conn = ds.getConnection();
             Statement st=conn.createStatement();
             
-            for (String motachercher : liste1) {
+            for (String motachercher : listTMP) {
                 ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" +motachercher+"'");
                 
                 while(rs.next())
                 {
-                    liste2.add(rs.getString(1));
+                    list2.add(rs.getString(1));
                 }
                 rs.close();
             }
             
-            float sizel1 = liste1.size();
-            float sizel2 = liste2.size();
+            float sizel1 = list1.size();
+            float sizel2 = list2.size();
            
             indice = (sizel2/sizel1)*100;
         
