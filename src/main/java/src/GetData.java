@@ -58,14 +58,16 @@ public class GetData {
         // Return par la fonction
         String toReturn = " ";
         
-        try {
+        return list1.get(1);
+        
+        /*try {
             Connection conn = ds.getConnection();
             Statement st=conn.createStatement();
             ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
             rs.next();
             int count = rs.getInt("rowcount");
             rs.close();
-            return "row count :"+count;
+            
             
             /*for (String motachercher : listTMP) {
                 //ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" + motachercher +"'");
@@ -97,9 +99,9 @@ public class GetData {
             
             st.close();
             conn.close();
-            return toReturn;*/
+            return toReturn;
         } catch (SQLException ex) {
             return ex.toString();
-        }
+        }*/
     }
 }
