@@ -34,9 +34,7 @@ public class GetData {
     @Resource(lookup = "jdbc/oracledb-serv")
     DataSource ds;
     
-    public String confindenceIndex(String list1){
-        ArrayList<String> list3 = new ArrayList<String>();
-        list3.add(list1);
+    public String confindenceIndex(ArrayList<String> list1){
         ArrayList<String> list2 = new ArrayList<String>();
         
         // fileName = nom du fichier txt décrypté, à récup du C#
@@ -54,7 +52,7 @@ public class GetData {
             Statement st=conn.createStatement();
             
             //return "row count :"+count;
-            for (String motachercher : list3) {
+            for (String motachercher : list1) {
                 ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" + motachercher +"'");
                 //ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
                 
@@ -65,7 +63,7 @@ public class GetData {
                 rs.close();
             }
             
-            float sizel1 = list3.size();
+            float sizel1 = list1.size();
             float sizel2 = list2.size();
            
             indice = (sizel2/sizel1)*100;
@@ -78,7 +76,7 @@ public class GetData {
             else {
                 //System.out.println("L'indice de décryptage est insuffisant");
                 //System.out.println("L'indice de décryptage est de : " + indice + "%, l'indice minimum requis est de 70%"); 
-                toReturn = "Indice de décryptage est insuffisant";
+                toReturn = "Indice de décryptage est insuffisant : " + indice + " " + fileName;
             }      
            
             
