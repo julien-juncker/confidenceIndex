@@ -35,7 +35,7 @@ public class GetData {
     DataSource ds;
     
     public String confindenceIndex(ArrayList<String> list1) throws SQLException{
-        Connection con = null;
+        /*Connection con = null;
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             con = DriverManager.getConnection("jdbc:oracle:thin:@52.247.70.89:32769:orclcdb","c##developper","Root123");
@@ -43,7 +43,7 @@ public class GetData {
             Logger.getLogger(GetData.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        Statement st=con.createStatement();
+        Statement st=con.createStatement();*/
         
         ArrayList<String> listTMP = new ArrayList<String>();
         listTMP.add("amour");
@@ -59,11 +59,17 @@ public class GetData {
         String toReturn = " ";
         
         try {
-            //Connection conn = dataSource.getConnection();
-            //Statement st=conn.createStatement();
+            Connection conn = ds.getConnection();
+            Statement st=conn.createStatement();
+            ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
+            rs.next();
+            int count = rs.getInt("rowcount");
+            rs.close();
+            return "row count :"+count;
             
-            for (String motachercher : listTMP) {
-                ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" +motachercher+"'");
+            /*for (String motachercher : listTMP) {
+                //ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" + motachercher +"'");
+                ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
                 
                 while(rs.next())
                 {
@@ -90,8 +96,8 @@ public class GetData {
            
             
             st.close();
-            con.close();
-            return toReturn;
+            conn.close();
+            return toReturn;*/
         } catch (SQLException ex) {
             return ex.toString();
         }
