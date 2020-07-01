@@ -60,13 +60,14 @@ public class GetData {
         
             st.close();
             conn.close();
-        
-
+            
         }
             return listeReturned;
 
         } catch (SQLException ex) {
-            return null;
+            ArrayList<String> returnEx = new ArrayList<String>();
+            returnEx.add(ex.toString());
+            return returnEx;
         }
     }
 }
