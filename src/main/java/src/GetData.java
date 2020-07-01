@@ -6,18 +6,12 @@
 package src;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
@@ -31,60 +25,48 @@ public class GetData {
         return "Any message goes here";
     }
     
-    @Resource(lookup = "jdbc/oracledb-serv")
+    @Resource(lookup = "jdbc/oracledb")
     DataSource ds;
     
-    public String confindenceIndex(ArrayList<String> list1){
-        ArrayList<String> list2 = new ArrayList<String>();
+    public ArrayList<String> confindenceIndex(ArrayList<String> liste1){
+        ArrayList<String> liste2 = new ArrayList<String>();
+        ArrayList<String> listeReturned = new ArrayList<String>();
         
         // fileName = nom du fichier txt décrypté, à récup du C#
         String fileName = "txt xx";
         
-        float indice = 0;
       
-        // Return par la fonction
-        String toReturn = " ";
-        
-        //return list1.get(1);
         
         try {
             Connection conn = ds.getConnection();
             Statement st=conn.createStatement();
             
-            //return "row count :"+count;
-            for (String motachercher : list1) {
-                ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" + motachercher +"'");
-                //ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
+            for (String motachercher : liste1) {
+            ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" +motachercher+"'");
                 
-                while(rs.next())
-                {
-                    list2.add(rs.getString(1));
-                }
-                rs.close();
+            while(rs.next())
+            {
+                liste2.add(rs.getString(1));
             }
+            rs.close();
             
-            float sizel1 = list1.size();
-            float sizel2 = list2.size();
-           
-            indice = (sizel2/sizel1)*100;
+            float sizel1 = liste1.size();
+            float sizel2 = liste2.size();
+            
+            float indice = (sizel2/sizel1)*100;
+            String toReturn = ""+indice;
+            
+            listeReturned.add(toReturn);
         
-            if(indice >= 60) {
-                //System.out.println("L'indice de décryptage est suffisant");
-                //System.out.println("L'indice de décryptage est de : " + indice + "%");
-                toReturn = "Nom du fichier : " + fileName + " |Indice de décryptage : " + indice +" %";
-            }
-            else {
-                //System.out.println("L'indice de décryptage est insuffisant");
-                //System.out.println("L'indice de décryptage est de : " + indice + "%, l'indice minimum requis est de 70%"); 
-                toReturn = "Indice de décryptage est insuffisant : " + indice + " " + fileName;
-            }      
-           
-            
             st.close();
             conn.close();
-            return toReturn;
+        
+
+        }
+            return listeReturned;
+
         } catch (SQLException ex) {
-            return ex.toString();
+            return null;
         }
     }
 }
