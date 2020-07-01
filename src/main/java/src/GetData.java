@@ -58,11 +58,14 @@ public class GetData {
         //return list1.get(1);
         
         try {
+            int count =0;
             Connection conn = ds.getConnection();
             Statement st=conn.createStatement();
             ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
-            rs.next();
-            int count = rs.getInt(1);
+            while(rs.next()) {
+                count = rs.getInt(1);
+            }
+            
             rs.close();
             
             return "row count :"+count;
