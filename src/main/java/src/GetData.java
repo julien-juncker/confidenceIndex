@@ -31,7 +31,7 @@ public class GetData {
         return "Any message goes here";
     }
     
-    @Resource(lookup = "jdbc/oracledb")
+    @Resource(lookup = "jdbc/oracledb-serv")
     DataSource ds;
     
     public String confindenceIndex(String list1){
