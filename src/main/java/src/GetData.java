@@ -25,7 +25,7 @@ public class GetData {
         return "Any message goes here";
     }
     
-    @Resource(lookup = "jdbc/oracledb-serv")
+    @Resource(lookup = "jdbc/oracledb")
     DataSource ds;
     
     public ArrayList<String> confindenceIndex(ArrayList<String> liste1){
@@ -46,6 +46,7 @@ public class GetData {
             }
             rs.close();
             
+            }
             float sizel1 = liste1.size();
             float sizel2 = liste2.size();
             
@@ -58,7 +59,6 @@ public class GetData {
             st.close();
             conn.close();
             
-        }
             return listeReturned;
 
         } catch (SQLException ex) {
