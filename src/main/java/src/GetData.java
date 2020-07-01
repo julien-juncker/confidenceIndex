@@ -34,7 +34,7 @@ public class GetData {
     @Resource(lookup = "jdbc/oracledb")
     DataSource ds;
     
-    public String confindenceIndex(ArrayList<String> list1) throws SQLException{
+    public String confindenceIndex(ArrayList<String> list1){
         /*Connection con = null;
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -44,9 +44,6 @@ public class GetData {
         }
 
         Statement st=con.createStatement();*/
-        
-        ArrayList<String> listTMP = new ArrayList<String>();
-        listTMP.add("amour");
         
         ArrayList<String> list2 = new ArrayList<String>();
         
