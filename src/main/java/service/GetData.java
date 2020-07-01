@@ -26,7 +26,7 @@ public class GetData {
     }
     
     @WebMethod(operationName="confindenceIndex")
-    public String confindenceIndex(ArrayList<String> liste1){
+    public String confindenceIndex(String liste1){
         return ejbRef.confindenceIndex(liste1);
     }
 }
