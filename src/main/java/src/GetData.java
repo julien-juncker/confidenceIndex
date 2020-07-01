@@ -35,16 +35,6 @@ public class GetData {
     DataSource ds;
     
     public String confindenceIndex(ArrayList<String> list1){
-        /*Connection con = null;
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            con = DriverManager.getConnection("jdbc:oracle:thin:@52.247.70.89:32769:orclcdb","c##developper","Root123");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GetData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        Statement st=con.createStatement();*/
-        
         ArrayList<String> list2 = new ArrayList<String>();
         
         // fileName = nom du fichier txt décrypté, à récup du C#
@@ -58,20 +48,13 @@ public class GetData {
         //return list1.get(1);
         
         try {
-            int count =0;
             Connection conn = ds.getConnection();
             Statement st=conn.createStatement();
-            ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
-            while(rs.next()) {
-                count = rs.getInt(1);
-            }
             
-            rs.close();
-            
-            return "row count :"+count;
-            /*for (String motachercher : listTMP) {
-                //ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" + motachercher +"'");
-                ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
+            //return "row count :"+count;
+            for (String motachercher : list1) {
+                ResultSet rs = st.executeQuery("Select * from dictionnaire where mot ='" + motachercher +"'");
+                //ResultSet rs = st.executeQuery("Select count(*) mot from dictionnaire");
                 
                 while(rs.next())
                 {
@@ -85,7 +68,7 @@ public class GetData {
            
             indice = (sizel2/sizel1)*100;
         
-            if(indice >= 100) {
+            if(indice >= 60) {
                 //System.out.println("L'indice de décryptage est suffisant");
                 //System.out.println("L'indice de décryptage est de : " + indice + "%");
                 toReturn = "Nom du fichier : " + fileName + " |Indice de décryptage : " + indice +" %";
@@ -99,7 +82,7 @@ public class GetData {
             
             st.close();
             conn.close();
-            return toReturn;*/
+            return toReturn;
         } catch (SQLException ex) {
             return ex.toString();
         }
