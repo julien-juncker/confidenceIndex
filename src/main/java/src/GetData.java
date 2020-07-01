@@ -25,17 +25,13 @@ public class GetData {
         return "Any message goes here";
     }
     
-    @Resource(lookup = "jdbc/oracledb")
+    @Resource(lookup = "jdbc/oracledb-serv")
     DataSource ds;
     
     public ArrayList<String> confindenceIndex(ArrayList<String> liste1){
         ArrayList<String> liste2 = new ArrayList<String>();
         ArrayList<String> listeReturned = new ArrayList<String>();
         
-        // fileName = nom du fichier txt décrypté, à récup du C#
-        String fileName = "txt xx";
-        
-      
         
         try {
             Connection conn = ds.getConnection();
@@ -54,6 +50,7 @@ public class GetData {
             float sizel2 = liste2.size();
             
             float indice = (sizel2/sizel1)*100;
+            
             String toReturn = ""+indice;
             
             listeReturned.add(toReturn);
